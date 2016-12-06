@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!-- 引入 Bootstrap -->
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style>
+        nav section{
+            height:48px;
+            padding-top:6px
+        }
+        .checkbox{
+            margin: 0px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <section class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6">
+            <div class="input-group">
+                <span class="input-group-addon">+</span>
+                <input id="taskItem" name="taskItem" type="text" class="form-control" placeholder="请输入任务..">
+            </div>
+        </section>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class=" col-xs-12 col-sm-offset-3 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">待完成<span class="badge" id="todoCount" style="float: right"></span></h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group" id="todoList">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-xs-12 col-sm-offset-3 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">已经完成<span class="badge" id="doneCount"  style="float: right"></span></h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group" id="doneList">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- 包括所有已编译的插件 -->
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script src="main.js"></script>
+</html>

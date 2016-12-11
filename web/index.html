@@ -26,8 +26,14 @@
             <div class="input-group">
                 <span class="input-group-addon" style="font-size: large">+</span>
                 <input id="taskItem" name="taskItem" type="text" class="form-control" placeholder="请输入任务..">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li><a href="javascript:createNewTask($('#taskItem').val())">add</a></li>
+                        <li><a href="javascript:clearCookie();">clear</a></li>
+                    </ul>
+                </div><!-- /btn-group -->
             </div>
-            <button onclick="clearCookie()" style="float: right;">clear</button>
         </section>
     </nav>
     <div class="container">

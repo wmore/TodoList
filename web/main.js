@@ -37,16 +37,7 @@ $(function(){
         $("#taskItem").bind("keypress",function(event){
             if(event.keyCode == "13"){
                 var task = $(this).val();
-                var newItem = '<li class="list-group-item"><div class="checkbox"><label>'+
-                    '<input type="checkbox">'+task+'</label>'+
-                    '<a><span class="glyphicon glyphicon-trash" data-task="'+task+'"></span></a></div></li>';
-                $("#todoList").append(newItem);
-                $(this).val("");
-
-                calListItemCount();
-
-                todoArray.push(task);
-                saveCookie();
+                createNewTask(task);
             }
 
         });
@@ -80,15 +71,18 @@ $(function(){
 
 
         $("#doneList").on("click","span",function(){
-            $(this).parent().parent().parent().remove();
-            doneArray.splice($.inArray($(this).data("task"),doneArray),1);
+
+            doneArray.splice($.inArray($(this).data("task").toString(),doneArray),1);
             saveCookie();
+            $(this).parent().parent().parent().remove();
+            calListItemCount();
         });
 
         $("#todoList").on("click","span",function(){
-            $(this).parent().parent().parent().remove();
-            todoArray.splice($.inArray($(this).data("task"),todoArray),1);
+            todoArray.splice($.inArray($(this).data("task").toString(),todoArray),1);
             saveCookie();
+            $(this).parent().parent().parent().remove();
+            calListItemCount();
         });
     }
 );
@@ -110,3 +104,18 @@ function clearCookie(){
     $.cookie('doneList', null);
     location.reload();
 }
+
+function createNewTask(task){
+
+    var newItem = '<li class="list-group-item"><div class="checkbox"><label>'+
+        '<input type="checkbox">'+task+'</label>'+
+        '<a><span class="glyphicon glyphicon-trash" data-task="'+task+'"></span></a></div></li>';
+    $("#todoList").append(newItem);
+    $("#taskItem").val("");
+
+    calListItemCount();
+
+    todoArray.push(task);
+    saveCookie();
+}
+

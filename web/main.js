@@ -7,9 +7,9 @@ var doneCount = 0;
 var todoArray = new Array();
 var doneArray = new Array();
 $(function(){
-        if($.cookie("todoList"))
+        if($.cookie("todoList")!='null' && $.cookie("todoList")!='')
             todoArray =  $.cookie("todoList").split(',');
-        if($.cookie("doneList"))
+        if($.cookie("doneList")!='null' && $.cookie("doneList")!='')
             doneArray =  $.cookie("doneList").split(',');
 
 
@@ -17,7 +17,7 @@ $(function(){
             var task = todoArray[i];
             var newItem = '<li class="list-group-item"><div class="checkbox"><label>'+
                 '<input type="checkbox">'+task+'</label>'+
-                '<span class="glyphicon glyphicon-trash"></span></div></li>';
+                '<a><span class="glyphicon glyphicon-trash" data-task="'+task+'"></span></a></div></li>';
             $("#todoList").append(newItem);
         }
 
@@ -26,7 +26,7 @@ $(function(){
             var task = doneArray[i];
             var newItem = '<li class="list-group-item"><div class="checkbox"><label>'+
                 '<input type="checkbox">'+task+'</label>'+
-                '<span class="glyphicon glyphicon-trash"></span></div></li>';
+                '<a><span class="glyphicon glyphicon-trash" data-task="'+task+'"></span></a></div></li>';
             $("#doneList").append(newItem);
         }
 
@@ -39,7 +39,7 @@ $(function(){
                 var task = $(this).val();
                 var newItem = '<li class="list-group-item"><div class="checkbox"><label>'+
                     '<input type="checkbox">'+task+'</label>'+
-                    '<span class="glyphicon glyphicon-trash"></span></div></li>';
+                    '<a><span class="glyphicon glyphicon-trash" data-task="'+task+'"></span></a></div></li>';
                 $("#todoList").append(newItem);
                 $(this).val("");
 
@@ -50,20 +50,46 @@ $(function(){
             }
 
         });
-        $("#todoList").on("click","li",function(){
-            var isChecked = $(this).find("input[type='checkbox']").prop('checked');
+        $("#todoList").on("click","input[type='checkbox']",function(){
+            var isChecked = $(this).prop('checked');
             if(isChecked){
-                $("#doneList").append($(this));
+                $("#doneList").append($(this).parent().parent().parent());
             }
             calListItemCount();
 
-            var task = $(this).find("label").text();
+            var task = $(this).parent().text();
             todoArray.splice($.inArray(task,todoArray),1);
             doneArray.push(task);
 
             saveCookie();
         });
 
+        $("#doneList").on("click","input[type='checkbox']",function(){
+            var isChecked = $(this).prop('checked');
+            if(isChecked){
+                $("#todoList").append($(this).parent().parent().parent());
+            }
+            calListItemCount();
+
+            var task = $(this).parent().text();
+            doneArray.splice($.inArray(task,doneArray),1);
+            todoArray.push(task);
+
+            saveCookie();
+        });
+
+
+        $("#doneList").on("click","span",function(){
+            $(this).parent().parent().parent().remove();
+            doneArray.splice($.inArray($(this).data("task"),doneArray),1);
+            saveCookie();
+        });
+
+        $("#todoList").on("click","span",function(){
+            $(this).parent().parent().parent().remove();
+            todoArray.splice($.inArray($(this).data("task"),todoArray),1);
+            saveCookie();
+        });
     }
 );
 
@@ -77,4 +103,10 @@ function calListItemCount(){
 function saveCookie(){
     $.cookie('todoList', todoArray, { expires: 7 });
     $.cookie('doneList', doneArray, { expires: 7 });
+}
+
+function clearCookie(){
+    $.cookie('todoList', null);
+    $.cookie('doneList', null);
+    location.reload();
 }

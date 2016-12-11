@@ -13,15 +13,21 @@
         .checkbox{
             margin: 0px;
         }
+
+        .list-group-item span{
+            float: right;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-default">
-        <section class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6">
+        <section class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6" >
             <div class="input-group">
-                <span class="input-group-addon">+</span>
+                <span class="input-group-addon" style="font-size: large">+</span>
                 <input id="taskItem" name="taskItem" type="text" class="form-control" placeholder="请输入任务..">
             </div>
+            <button onclick="clearCookie()" style="float: right;">clear</button>
         </section>
     </nav>
     <div class="container">
